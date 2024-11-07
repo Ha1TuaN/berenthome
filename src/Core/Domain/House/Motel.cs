@@ -6,8 +6,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     public string Title { get; set; } = default!;
     public string? Star { get; set; }
     public string Address { get; set; } = default!;
-    public Guid CategoryId { get; set; }
-    public virtual Category? Category { get; set; }
+    public string Type { get; set; } = default!;
     public Guid ProvinceId { get; set; }
     public virtual Area? Province { get; set; }
     public Guid DistrictId { get; set; }
@@ -22,7 +21,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     public Motel(
         string title,
         string address,
-        Guid categoryId,
+        string type,
         Guid provinceId,
         Guid districtId,
         string? description,
@@ -35,7 +34,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     {
         Title = title;
         Address = address;
-        CategoryId = categoryId;
+        Type = type;
         ProvinceId = provinceId;
         DistrictId = districtId;
         Description = description;
@@ -49,7 +48,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     public Motel Update(
         string? title,
         string? address,
-        Guid? categoryId,
+        string? type,
         Guid? provinceId,
         Guid? districtId,
         string? desciption,
@@ -60,7 +59,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     {
         Title = title ?? Title;
         Address = address ?? Address;
-        CategoryId = categoryId ?? CategoryId;
+        Type = type ?? Type;
         ProvinceId = provinceId ?? ProvinceId;
         DistrictId = districtId ?? DistrictId;
         Description = desciption ?? Description;

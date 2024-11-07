@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Text.RegularExpressions;
+using TD.KCN.WebApi.Application.House.FeatureHousess;
+using TD.KCN.WebApi.Application.House.ImageHouses;
 using TD.KCN.WebApi.Domain.Common.Events;
 using TD.KCN.WebApi.Domain.House;
 
@@ -9,7 +11,7 @@ public class CreateMotelRequest : IRequest<Result<Guid>>
 {
     public string Title { get; set; } = default!;
     public string Address { get; set; } = default!;
-    public Guid CategoryId { get; set; }
+    public string Type { get; set; } = default!;
     public Guid ProvinceId { get; set; }
     public Guid DistrictId { get; set; }
     public string? Description { get; set; }
@@ -18,6 +20,9 @@ public class CreateMotelRequest : IRequest<Result<Guid>>
     public decimal? Area { get; set; }
     public int BedroomCount { get; set; }
     public int BathroomCount { get; set; }
+    public List<CreateImageHouseRequest>? ImageHouseRequests { get; set; }
+    public List<CreateFeatureHousesRequest>? FeatureHouseRequests { get; set; }
+
 }
 
 public class CreateMotelRequestValidator : CustomValidator<CreateMotelRequest>
@@ -42,7 +47,7 @@ public class CreateMotelRequestHandler : IRequestHandler<CreateMotelRequest, Res
         var motel = new Motel(
             request.Title,
             request.Address,
-            request.CategoryId,
+            request.Type,
             request.ProvinceId,
             request.DistrictId,
             request.Description,

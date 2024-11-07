@@ -2,9 +2,9 @@ namespace TD.KCN.WebApi.Application.House.Motels;
 
 public class SearchMotelsRequest : PaginationFilter, IRequest<PaginationResponse<MotelDto>>
 {
-    public Guid? CategoryId { get; set; }
-    public Guid? ProvinceId { get; set; }
     public Guid? DistrictId { get; set; }
+    public Guid? ProvinceId { get; set; }
+    public List<string>? Type { get; set; }
     public List<decimal>? Price { get; set; }
     public List<decimal>? Area { get; set; }
     public List<int>? BedroomCount { get; set; }
@@ -18,8 +18,11 @@ public class MotelsBySearchRequestSpec : EntitiesByPaginationFilterSpec<Motel, M
     {
         Query.OrderBy(c => c.Title, !request.HasOrderBy())
              .Where(c => c.ProvinceId == request.ProvinceId, request.ProvinceId.HasValue)
-             .Where(c => c.DistrictId == request.DistrictId, request.DistrictId.HasValue)
-             .Where(c => c.CategoryId == request.CategoryId, request.CategoryId.HasValue);
+             .Where(c => c.DistrictId == request.DistrictId, request.DistrictId.HasValue);
+        if (request.Type != null && request.Price.Count > 0)
+        {
+            Query.Where(c => request.Type.Contains(c.Type));
+        }
 
         if (request.Price != null && request.Price.Count == 2)
         {

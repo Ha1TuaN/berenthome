@@ -5,6 +5,7 @@ using TD.KCN.WebApi.Infrastructure;
 using TD.KCN.WebApi.Infrastructure.Common;
 using TD.KCN.WebApi.Infrastructure.Logging.Serilog;
 using Serilog;
+using Microsoft.Extensions.FileProviders;
 
 [assembly: ApiConventionType(typeof(TDApiConventions))]
 
@@ -31,7 +32,11 @@ try
 
     app.UseInfrastructure(builder.Configuration);
 
-    app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
+        RequestPath = "/Uploads"
+    });
     app.UseSpaStaticFiles();
 
     app.UseSpa(spa =>

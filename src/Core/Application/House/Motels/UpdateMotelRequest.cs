@@ -10,7 +10,7 @@ public class UpdateMotelRequest : IRequest<Result<Guid>>
     public Guid Id { get; set; }
     public string? Title { get; set; }
     public string? Address { get; set; }
-    public Guid? CategoryId { get; set; }
+    public string? Type { get; set; }
     public Guid? ProvinceId { get; set; }
     public Guid? DistrictId { get; set; }
     public string? Description { get; set; }
@@ -48,7 +48,7 @@ public class UpdateMotelRequestHandler : IRequestHandler<UpdateMotelRequest, Res
         item.Update(
             request.Title,
             request.Address,
-            request.CategoryId,
+            request.Type,
             request.ProvinceId,
             request.DistrictId,
             request.Description,

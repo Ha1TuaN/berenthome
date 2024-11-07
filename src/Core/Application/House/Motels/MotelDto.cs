@@ -6,8 +6,7 @@ public class MotelDto : IDto
     public string Title { get; set; } = default!;
     public string? Star { get; set; }
     public string Address { get; set; } = default!;
-    public Guid CategoryId { get; set; }
-    public string? CategoryName { get; set; }
+    public string? Type { get; set; } = default!;
     public Guid ProvinceId { get; set; }
     public string? ProvinceName { get; set; }
     public Guid DistrictId { get; set; }

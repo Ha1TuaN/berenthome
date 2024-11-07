@@ -15,11 +15,6 @@ public class MotelConfig : IEntityTypeConfiguration<Motel>
         builder.Property(b => b.Description).HasMaxLength(1024);
         builder.ToTable("Motels", SchemaNames.House);
 
-        builder.HasOne(h => h.Category)
-               .WithMany()
-               .HasForeignKey(h => h.CategoryId)
-               .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasOne(h => h.Province)
                .WithMany()
                .HasForeignKey(h => h.ProvinceId)
