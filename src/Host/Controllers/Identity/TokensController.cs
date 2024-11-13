@@ -10,7 +10,6 @@ public sealed class TokensController : VersionNeutralApiController
 
     [HttpPost]
     [AllowAnonymous]
-    [TenantIdHeader]
     [OpenApiOperation("Request an access token using credentials.", "")]
     public Task<TokenResponse> GetTokenAsync(TokenRequest request, CancellationToken cancellationToken)
     {

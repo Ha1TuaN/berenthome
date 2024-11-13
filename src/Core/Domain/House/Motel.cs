@@ -17,6 +17,7 @@ public class Motel : AuditableEntity, IAggregateRoot
     public decimal? Area { get; set; } = default!;
     public int BedroomCount { get; set; } = default!;
     public int BathroomCount { get; set; } = default!;
+    public virtual List<ImageHouse> ImageHouses { get; set; }
 
     public Motel(
         string title,

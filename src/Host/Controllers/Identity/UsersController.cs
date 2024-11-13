@@ -82,8 +82,8 @@ public class UsersController : VersionNeutralApiController
     }
 
     [HttpPost]
-    [MustHavePermission(TDAction.Manage, TDResource.Users)]
     [OpenApiOperation("Creates a new user.", "")]
+    [AllowAnonymous]
     public Task<string> CreateAsync(CreateUserRequest request)
     {
         // TODO: check if registering anonymous users is actually allowed (should probably be an appsetting)
