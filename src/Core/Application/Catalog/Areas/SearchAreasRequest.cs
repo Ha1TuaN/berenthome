@@ -35,15 +35,21 @@ public class SearchCategoriesRequestHandler : IRequestHandler<SearchAreasRequest
     {
         if (request.ParentId.HasValue)
         {
-#pragma warning disable CS8714
             var area = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
-#pragma warning restore CS8714
             if (area != null) request.ParentCode = area.Code;
         }
 
         var spec = new AreasBySearchRequestSpec(request);
 
         var list = await _repository.ListAsync(spec, cancellationToken);
+        foreach (var area in list)
+        {
+            var lstChildren = await _repository.ListAsync(
+                (ISpecification<Area, AreaDto>)new AreasByParentCodeSpec(area.Code),
+                cancellationToken
+            );
+            area.Children = lstChildren;
+        }
         int count = await _repository.CountAsync(spec, cancellationToken);
 
         return new PaginationResponse<AreaDto>(list, count, request.PageNumber, request.PageSize);

@@ -8,4 +8,5 @@ public class AreaDto : IDto
     public string? ParentCode { get; set; }
     public string? NameWithType { get; set; }
     public string? PathWithType { get; set; }
+    public List<AreaDto> Children { get; set; } = new List<AreaDto>();
 }
