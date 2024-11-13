@@ -5,8 +5,10 @@ public static class TDSection
 {
     public const string Tenants = nameof(Tenants);
 
-    // public const string System = "Hệ thống";
-    // public const string Categories = "Danh mục chung";
+    public const string System = "Hệ thống";
+    public const string Categories = "Danh mục chung";
+    public const string House = "Danh mục chung";
+
 }
 
 public static class TDAction
@@ -52,6 +54,7 @@ public static class TDPermissions
 {
     private static readonly TDPermission[] _all =
     [
+        new("Quản trị khu công nghiệp", TDAction.Manage, TDResource.Motels, TDSection.House, true),
     ];
 
     public static IReadOnlyList<TDPermission> All { get; } = new ReadOnlyCollection<TDPermission>(_all);

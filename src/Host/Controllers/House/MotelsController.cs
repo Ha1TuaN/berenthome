@@ -21,7 +21,6 @@ public class MotelsController : VersionedApiController
     }
 
     [HttpPost]
-    [MustHavePermission(TDAction.Manage, TDResource.Motels)]
     [OpenApiOperation("Tạo mới địa bàn.", "")]
     public Task<Result<Guid>> CreateAsync(CreateMotelRequest request)
     {
@@ -29,7 +28,6 @@ public class MotelsController : VersionedApiController
     }
 
     [HttpPut("{id:guid}")]
-    [MustHavePermission(TDAction.Manage, TDResource.Motels)]
     [OpenApiOperation("Cập nhật địa bàn.", "")]
     public async Task<ActionResult<Guid>> UpdateAsync(UpdateMotelRequest request, Guid id)
     {
@@ -39,7 +37,6 @@ public class MotelsController : VersionedApiController
     }
 
     [HttpDelete("{id:guid}")]
-    [MustHavePermission(TDAction.Manage, TDResource.Motels)]
     [OpenApiOperation("Xóa địa bàn.", "")]
     public Task<Result<Guid>> DeleteAsync(Guid id)
     {

@@ -35,7 +35,7 @@ public class ImageHouseConfig : IEntityTypeConfiguration<ImageHouse>
         builder.ToTable("ImageHouses", SchemaNames.House);
 
         builder.HasOne(img => img.Motel)
-               .WithMany()
+               .WithMany(x => x.ImageHouses)
                .HasForeignKey(img => img.MotelId)
                .OnDelete(DeleteBehavior.Cascade);
     }

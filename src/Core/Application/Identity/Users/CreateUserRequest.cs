@@ -7,15 +7,11 @@ public class CreateUserRequest
     public string? Gender { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public string? Address { get; set; }
-    public bool IsActive { get; set; } = true;
     public string Email { get; set; } = default!;
     public string? PhoneNumber { get; set; }
     public string? ImageUrl { get; set; }
     public string Password { get; set; } = default!;
     public string ConfirmPassword { get; set; } = default!;
-    public Guid? OrganizationUnitId { get; set; }
-    public Guid? CompanyId { get; set; }
-    public string? JobTitle { get; set; }
 
     /// <summary>
     /// Loại người dùng

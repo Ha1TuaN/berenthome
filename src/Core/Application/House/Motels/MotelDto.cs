@@ -1,3 +1,5 @@
+using TD.KCN.WebApi.Application.House.ImageHouses;
+
 namespace TD.KCN.WebApi.Application.House.Motels;
 
 public class MotelDto : IDto
@@ -17,4 +19,5 @@ public class MotelDto : IDto
     public decimal? Area { get; set; }
     public int? BedroomCount { get; set; }
     public int? BathroomCount { get; set; }
+    public List<ImageHouseDto>? ImageHouses { get; set; }
 }

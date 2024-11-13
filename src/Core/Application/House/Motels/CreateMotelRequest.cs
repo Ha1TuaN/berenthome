@@ -20,8 +20,8 @@ public class CreateMotelRequest : IRequest<Result<Guid>>
     public decimal? Area { get; set; }
     public int BedroomCount { get; set; }
     public int BathroomCount { get; set; }
-    public List<CreateImageHouseRequest>? ImageHouseRequests { get; set; }
-    public List<CreateFeatureHousesRequest>? FeatureHouseRequests { get; set; }
+    public List<CreateImageHouseRequest>? ImageHouses { get; set; }
+    public List<CreateFeatureHousesRequest>? FeatureHouses { get; set; }
 
 }
 
@@ -38,10 +38,19 @@ public class CreateMotelRequestHandler : IRequestHandler<CreateMotelRequest, Res
 {
     // Add Domain Events automatically by using IRepositoryWithEvents
     private readonly IRepositoryWithEvents<Motel> _repository;
+    private readonly IRepositoryWithEvents<ImageHouse> _repositoryImg;
+    private readonly IRepositoryWithEvents<FeatureHouse> _repositoryFeature;
+
     private readonly IStringLocalizer<CreateMotelRequestHandler> _localizer;
 
-    public CreateMotelRequestHandler(IRepositoryWithEvents<Motel> repository, IStringLocalizer<CreateMotelRequestHandler> localizer) => (_repository, _localizer) = (repository, localizer);
-
+    public CreateMotelRequestHandler(IRepositoryWithEvents<Motel> repository, IRepositoryWithEvents<ImageHouse> repositoryImg,IRepositoryWithEvents<FeatureHouse> repositoryFeature, IStringLocalizer<CreateMotelRequestHandler> localizer) 
+    {
+        _repository = repository;
+        _repositoryImg = repositoryImg;
+        _repositoryFeature = repositoryFeature;
+        _localizer = localizer;
+    }
+ 
     public async Task<Result<Guid>> Handle(CreateMotelRequest request, CancellationToken cancellationToken)
     {
         var motel = new Motel(
@@ -57,6 +66,22 @@ public class CreateMotelRequestHandler : IRequestHandler<CreateMotelRequest, Res
             request.BedroomCount,
             request.BathroomCount);
         await _repository.AddAsync(motel, cancellationToken);
+
+        if (request.ImageHouses != null)
+        {
+            foreach (var img in request.ImageHouses)
+            {
+                await _repositoryImg.AddAsync(new ImageHouse(img.Image, motel.Id), cancellationToken);
+            }
+        }
+
+        if (request.FeatureHouses != null)
+        {
+            foreach (var feature in request.FeatureHouses)
+            {
+                await _repositoryFeature.AddAsync(new FeatureHouse(feature.Name, motel.Id), cancellationToken);
+            }
+        }
 
         return Result<Guid>.Success(motel.Id);
     }
